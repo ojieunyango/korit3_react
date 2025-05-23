@@ -1,32 +1,28 @@
 import { useState } from "react";
 
-export default function MyForm(){
-  const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    email: ''
-  });
-  const handleSubmit = event => {
-    alert(`안녕하세요, ${user.firstName} ${user.lastName}. Email주소는 ${user.email}입니다.`);
-    event.prevetDefault()
-  }
-  const handleChange = event=>{
-    setUser({...user, [event.target.name]: event.target.value})
-  }
+export default function MyForm4() {
+  const [ firstName, setFirstName ] = useState('');
+  const [ lastName, setLastName ] = useState('');
+  const [ email, setEmail ] = useState('');
 
+  const handleSubmit = event => {
+    alert(`안녕하세요, ${firstName} ${lastName}. Email 주소는 ${email}입니다.`);
+    event.prevetDefault();
+  }
   
+
   return(
-    <>
     <form onSubmit={handleSubmit}>
-      <label >Frist Name: </label>
-      <input type="text" name="firstName" value={user.firstName} onChange ={handleChange} /><br />
-      <label >Last Name: </label>
-      <input type="text" name="lastName" value={user.lastName} onChange ={handleChange} /><br />
-      <label >Email: </label>
-      <input type="text" name="email" value={user.email} onChange ={handleChange} /><br />
-      <button type = "submit"> 제출 </button>  
-      
+      <label>First Name </label>
+      <input type="text" name="firstName" value={firstName} onChange={event => setFirstName(event.target.value)}/> <br /><br />
+
+      <label>Last Name </label>
+      <input type="text" name="lastName" value={lastName} onChange={event => setLastName(event.target.value)}/> <br /><br />
+
+      <label>Email </label>
+      <input type="email" name="email" value={email} onChange={event => setEmail(event.target.value)}/> <br /><br />
+
+      <input type="submit" value="제출" />
     </form>
-    </>
   );
 }
