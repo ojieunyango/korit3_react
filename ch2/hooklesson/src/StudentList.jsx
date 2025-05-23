@@ -2,31 +2,16 @@
 
 export default function studentList(){
   const students = [
-  {id: 1, name: '김일'},
-  {id: 2, name: '김이'},
-  {id: 3, name: '김삼'},
-  {id: 4, name: '김사'},
-  {id: 5, name: '김오'},
-  {id: 6, name: '김육'},
-  {id: 7, name: '김칠'},
-  {id: 8, name: '김팔'},
-  {id: 9, name: '김구'},
-  {id: 10, name: '김십'}
+  '김일', '김이', '김삼', '김사', '김오', '김육', '김칠', '김팔', '김구', '김십',
   ];
   return(
 <>
-<table>
-    <tbody>
-      {
-        students.map(student => 
-          <tr key ={student.id}>
-            <td>{student.name}</td>
-        
-          </tr>
-        )
-      }
-    </tbody>
-  </table>
+<ol>
+  {
+    students.map((student, index)=> <li key ={index}>{student}</li>) // 매개변수이름 student, index 지정, li 번호이고 <> 리스트로 만들어준거
+    // 리턴을 안쓰고 
+  }
+</ol>
 </>
   );
 }
