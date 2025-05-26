@@ -34,7 +34,7 @@ function App() {
                 <tr key={repo.id}>
                   <td>{repo.full_name}</td>
                   <td>
-                    <a href={repo.html_url} target = {repo.html_url}></a>
+                    <a href={repo.html_url}> {repo.html_url}</a>
                   </td>
                 </tr>
               ))}
