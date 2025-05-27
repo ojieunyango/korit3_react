@@ -1,7 +1,7 @@
 import {Button, TextField} from '@mui/material'
 import {Dialog, DialogActions, DialogContent, DialogTitle} from '@mui/material'
 import {useState} from "react"
-import {Item} from "./App";
+import {Item} from "../App";
 
 type AddItemProps={
   addItem: (item: Item) => void;
@@ -28,22 +28,26 @@ export default function AddItem(props){
   }
 
   return(<>
-  <Button onClick={handleOpen}>
+  <Button onClick={handleOpen} variant="text">
    Add Item / 항목추가
   </Button>
   <Dialog open={open} onClose={handleClose}>
   <DialogTitle>New Item / 새로운 항목</DialogTitle>
   <DialogContent>
-   <TextField value={item.amount} margin="dense" onChange={e => setItem({...item, amount: e.target.value})}
-    label="Product/제품" fullWidth></TextField>
+   <TextField value={item.product} margin="dense" onChange={e => setItem({...item, product: e.target.value})}
+    label="Product/제품" fullWidth />
+      <TextField value={item.amount} margin="dense"
+            onChange={ e => setItem({...item, amount: e.target.value}) }
+            label="Amount/수량" fullWidth /> 
   </DialogContent>
   <DialogActions>
-  <Button onClick ={handleClose}>
+  <Button onClick ={handleClose} variant="outlined">
   Cancel / 취소
   </Button>
-  <Button >
+  <Button onClick={addItem} variant="outlined" >
   Add / 추가
   </Button>
+  
   </DialogActions>
   </Dialog>
   </>);
