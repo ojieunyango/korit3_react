@@ -1,9 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getCars, deleteCar } from "../api/carapi";
 import { DataGrid, GridColDef, GridCellParams } from "@mui/x-data-grid";
-import { Snackbar } from "@mui/material";
+import { Snackbar, IconButton } from "@mui/material";
 import { useState } from "react";
 import AddCar from "./AddCar";
+import EditCar from "./EditCar";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+
 
 export default function Carlist() {
   const queryClient = useQueryClient();
@@ -35,23 +39,33 @@ export default function Carlist() {
     {field: 'price', headerName: '가격', width: 150},
     {
       field: 'delete',
+      headerName: '수정',
+      width: 80,
+      sortable: false,
+      filterable: false,
+      disableColumnMenu: true,
+      renderCell: (params: GridCellParams) =>  <EditCar cardata={params.row}/>
+    },
+    { field: 'delete',
       headerName: '삭제',
+      width: 80,
       sortable: false,
       filterable: false,
       disableColumnMenu: true,
       renderCell: (params: GridCellParams) => (
-        <button onClick={() => {
-            if(window.confirm(`${params.row.brand}의 ${params.row.model} 자동차를 삭제하시겠습니까?`)) {
-              mutate(params.row._links.self.href);
-            }
-          }}
+        <IconButton aria-label="delete" size="small" onClick={() => {
+          if(window.confirm(`${params.row.brand}의 ${params.row.model} 자동차를 삭제하시겠습니까?`)) {
+            mutate(params.row._links.self.href);
+          }
+        }}
         >
-          Delete
-        </button>
+          <DeleteIcon fontSize="small" />
+        </IconButton>
       ),
     },
   ]
-
+      
+   
 
   if (!isSuccess) {
     return <span>Loading ... 💨</span>
