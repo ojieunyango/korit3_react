@@ -1,15 +1,17 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getCars, deleteCar } from "../api/carapi";
 import { DataGrid, GridColDef, GridCellParams } from "@mui/x-data-grid";
-import { Snackbar, IconButton } from "@mui/material";
+import { Snackbar, IconButton, Button, Stack } from "@mui/material";
 import { useState } from "react";
 import AddCar from "./AddCar";
 import EditCar from "./EditCar";
-import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteIcon from '@mui/icons-material/Delete';    // 복사한 버전으로 남겨두겠습니다.
 
+type CarlistProps = {
+  logOut?: () => void;
+}
 
-
-export default function Carlist() {
+export default function Carlist({ logOut } : CarlistProps) {
   const queryClient = useQueryClient();
 
   const [ open, setOpen ] = useState(false);
@@ -38,15 +40,16 @@ export default function Carlist() {
     {field: 'modelYear', headerName: 'Model Year', width: 150},
     {field: 'price', headerName: '가격', width: 150},
     {
-      field: 'delete',
+      field: 'edit',
       headerName: '수정',
       width: 80,
       sortable: false,
       filterable: false,
       disableColumnMenu: true,
-      renderCell: (params: GridCellParams) =>  <EditCar cardata={params.row}/>
+      renderCell: (params: GridCellParams) => <EditCar cardata={params.row}/>
     },
-    { field: 'delete',
+    {
+      field: 'delete',
       headerName: '삭제',
       width: 80,
       sortable: false,
@@ -54,18 +57,17 @@ export default function Carlist() {
       disableColumnMenu: true,
       renderCell: (params: GridCellParams) => (
         <IconButton aria-label="delete" size="small" onClick={() => {
-          if(window.confirm(`${params.row.brand}의 ${params.row.model} 자동차를 삭제하시겠습니까?`)) {
-            mutate(params.row._links.self.href);
-          }
-        }}
+            if(window.confirm(`${params.row.brand}의 ${params.row.model} 자동차를 삭제하시겠습니까?`)) {
+              mutate(params.row._links.self.href);
+            }
+          }}
         >
           <DeleteIcon fontSize="small" />
         </IconButton>
       ),
     },
   ]
-      
-   
+
 
   if (!isSuccess) {
     return <span>Loading ... 💨</span>
@@ -78,7 +80,11 @@ export default function Carlist() {
   else {
     return(
       <>
-        <AddCar />
+        <Stack direction="row" alignItems="center" justifyContent="space-between">
+          <AddCar />
+          <Button variant="outlined" onClick={logOut}>LOG OUT</Button>
+        </Stack>
+        
         <DataGrid 
           rows={data}
           columns={columns}
