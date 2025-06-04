@@ -1,0 +1,8 @@
+
+{
+  "app_title": "Todo List",
+  "add_todo_placeholder": "Add a new task...",
+  "add_button": "Add Task",
+  "delete_button": "Delete",
+  "no_task": "No tasks available"
+}
