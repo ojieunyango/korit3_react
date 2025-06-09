@@ -3,8 +3,8 @@ import { TodoItem } from "./TodoItem";
 
 interface TodoListProps {
   todos: Todo[];
-  onToggleComplete: (id: string) => void;
-  onDeleteTodo: (id: string) => void;
+  onToggleComplete: (id: number) => void;
+  onDeleteTodo: (id: number) => void;
 }
 
 export const TodoList: React.FC<TodoListProps> = (props: TodoListProps) => {
